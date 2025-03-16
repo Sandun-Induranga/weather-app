@@ -25,10 +25,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.weatherapp.api.NetworkResponse
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.models.WeatherViewModel
@@ -120,10 +122,28 @@ fun WeatherDetails(data: WeatherResponse) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Temperature: ${data.current.temp_c}°C",
+            text = "${data.current.temp_c}°C",
             fontSize = 56.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
+        )
+
+        AsyncImage(
+            model = "https:${data.current.condition.icon}".replace("64x64", "128x128"),
+            contentDescription = "Condition icon",
+            modifier = Modifier.size(160.dp),
+            placeholder = painterResource(R.drawable.ic_launcher_background), // Add a local placeholder image
+            error = painterResource(R.drawable.ic_launcher_background), // Add a local error image
+            onError = { error ->
+                // Handle error
+                println("Error: $error")
+            }
+        )
+        Text(
+            text = data.current.condition.text,
+            fontSize = 26.sp,
+            textAlign = TextAlign.Center,
+            color = Color.Gray
         )
     }
 

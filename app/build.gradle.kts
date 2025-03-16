@@ -68,7 +68,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     val retrofitVersion = "2.11.0"
-    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-    implementation ("androidx.compose.runtime:runtime-livedata:1.7.8")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
+//    implementation("io.coil-kt.coil3:coil-compose:3.0.0")
+    // Core Coil library for Compose
+    implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha06") // Adjust to the latest version
+
+// Network support (HTTP/HTTPS fetcher)
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-alpha06") // Adds OkHttp-based network fetching
 }
