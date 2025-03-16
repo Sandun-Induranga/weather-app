@@ -1,4 +1,4 @@
-package com.example.weather_app
+package com.example.weatherapp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,18 +13,25 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.weatherapp.api.NetworkResponse
 import com.example.weatherapp.models.WeatherViewModel
 
 @Composable
 fun WeatherPage(viewModel: WeatherViewModel) {
 
-    var city by remember { mutableStateOf("") }
+    var city by remember {
+        mutableStateOf("")
+    }
+
+    val weatherResult = viewModel.weatherResult.observeAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,5 +62,21 @@ fun WeatherPage(viewModel: WeatherViewModel) {
                 )
             }
         }
+
+        when(val res = weatherResult.value){
+            is NetworkResponse.Error -> {
+                Text(text = res.message)
+            }
+            NetworkResponse.Loading -> {
+                Text(text = "Loading...")
+            }
+            is NetworkResponse.Success -> {
+                val weatherResponse = res.data
+                Text(text = weatherResponse.location.name)
+                Text(text = weatherResponse.current.condition.text)
+            }
+            null -> {}
+        }
+
     }
 }
