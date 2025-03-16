@@ -1,11 +1,10 @@
 package com.example.weatherapp.models
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class WeatherViewModel: ViewModel() {
     fun getWeatherData(city: String){
-        // Fetch weather data from API
-
-
+        Log.d("WeatherViewModel", "City: $city")
     }
 }

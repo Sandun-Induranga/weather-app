@@ -46,7 +46,9 @@ fun WeatherPage(viewModel: WeatherViewModel) {
                 },
                 label = { Text("Search for your location") }
             )
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                viewModel.getWeatherData(city)
+            }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search the location",
