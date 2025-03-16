@@ -15,8 +15,8 @@ class WeatherViewModel : ViewModel() {
         viewModelScope.launch {
             val response = weatherApi.getWeatherData(Constants.API_KEY, city)
             if (response.isSuccessful) {
-                val weatherResponse = response.body()
-                Log.d("WeatherViewModel", "getWeatherData: $weatherResponse")
+//                val weatherResponse = response.body()
+                Log.d("WeatherViewModel", "getWeatherData: ${response.body().toString()}")
             } else {
                 Log.d("WeatherViewModel", "getWeatherData: ${response.errorBody()}")
             }
