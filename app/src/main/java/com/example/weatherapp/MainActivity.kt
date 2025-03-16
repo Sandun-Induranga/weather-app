@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
-import com.example.weather_app.WeatherPage
 import com.example.weatherapp.models.WeatherViewModel
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
