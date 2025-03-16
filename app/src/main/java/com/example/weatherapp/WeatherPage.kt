@@ -19,9 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.weatherapp.models.WeatherViewModel
 
 @Composable
-fun WeatherPage() {
+fun WeatherPage(viewModel: WeatherViewModel) {
 
     var city by remember { mutableStateOf("") }
     Column(
@@ -38,6 +39,7 @@ fun WeatherPage() {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             OutlinedTextField(
+                modifier = Modifier.weight(1f),
                 value = city,
                 onValueChange = {
                     city = it
