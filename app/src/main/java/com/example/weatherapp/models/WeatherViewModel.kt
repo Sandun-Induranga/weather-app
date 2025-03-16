@@ -20,7 +20,7 @@ class WeatherViewModel : ViewModel() {
         _weatherResult.value = NetworkResponse.Loading
         viewModelScope.launch {
             try {
-                val response = weatherApi.getWeatherData(Constants.API_KEY, city)
+                val response = weatherApi.getWeatherData(Constants.API_KEY, "Galle")
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _weatherResult.value = NetworkResponse.Success(it)

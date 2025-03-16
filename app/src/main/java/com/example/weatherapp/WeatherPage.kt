@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -132,10 +133,7 @@ fun WeatherDetails(data: WeatherResponse) {
             model = "https:${data.current.condition.icon}".replace("64x64", "128x128"),
             contentDescription = "Condition icon",
             modifier = Modifier.size(160.dp),
-            placeholder = painterResource(R.drawable.ic_launcher_background), // Add a local placeholder image
-            error = painterResource(R.drawable.ic_launcher_background), // Add a local error image
             onError = { error ->
-                // Handle error
                 println("Error: $error")
             }
         )
@@ -145,6 +143,45 @@ fun WeatherDetails(data: WeatherResponse) {
             textAlign = TextAlign.Center,
             color = Color.Gray
         )
-    }
 
+        Spacer(modifier = Modifier.height(16.dp))
+        Card {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    DetailCard("Humidity", data.current.humidity)
+                    DetailCard("Wind Speed", data.current.wind_kph + " km/h")
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    DetailCard("UV", data.current.uv)
+                    DetailCard("Participation", data.current.precip_mm + " mm")
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    DetailCard("Local Time", data.location.localtime.split(" ")[1])
+                    DetailCard("Local Date", data.location.localtime.split(" ")[0])
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun DetailCard(key: String, value: String) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = value, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text(text = key, fontWeight = FontWeight.SemiBold, color = Color.Gray)
+    }
 }
